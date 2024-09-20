@@ -80,6 +80,24 @@ app.get("/hsc", (req, res) => {
   });
 });
 
+app.get("/mainEvent", (req, res) => {
+  db.query("SELECT * FROM mainEvent", (err, results) => {
+    if (err) {
+      return res.status(500).json({ error: err.message });
+    }
+    res.json(results);
+  });
+});
+
+app.get("/subEvent", (req, res) => {
+  db.query("SELECT * FROM mainEvent", (err, results) => {
+    if (err) {
+      return res.status(500).json({ error: err.message });
+    }
+    res.json(results);
+  });
+});
+
 // CRUD for HSC
 app.post("/hsc", (req, res) => {
   const { year, percentage, total_marks, topper } = req.body;
