@@ -90,7 +90,7 @@ app.get("/mainEvent", (req, res) => {
 });
 
 app.get("/subEvent", (req, res) => {
-  db.query("SELECT * FROM mainEvent", (err, results) => {
+  db.query("SELECT * FROM subEvent", (err, results) => {
     if (err) {
       return res.status(500).json({ error: err.message });
     }
