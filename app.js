@@ -98,7 +98,6 @@ app.get("/subEvent", (req, res) => {
   });
 });
 
-// CRUD for HSC
 app.post("/hsc", (req, res) => {
   const { year, percentage, total_marks, topper } = req.body;
   const query = "INSERT INTO hsc (year, percentage, total_marks, topper) VALUES (?, ?, ?, ?)";
@@ -127,7 +126,6 @@ app.delete("/hsc/:id", (req, res) => {
   });
 });
 
-// CRUD for SSLC
 app.post("/sslc", (req, res) => {
   const { year, percentage, total_marks, topper } = req.body;
   const query = "INSERT INTO sslc (year, percentage, total_marks, topper) VALUES (?, ?, ?, ?)";
@@ -156,7 +154,6 @@ app.delete("/sslc/:id", (req, res) => {
   });
 });
 
-// CRUD for Main Event
 app.post("/mainEvent", (req, res) => {
   const { event_name, category, year, description, img1, img2, img3, img4, img5, img6, img7, img8, img9, img10 } = req.body;
   const query = "INSERT INTO mainEvent (event_name, category, year, description, img1, img2, img3, img4, img5, img6, img7, img8, img9, img10) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
@@ -185,7 +182,6 @@ app.delete("/mainEvent/:id", (req, res) => {
   });
 });
 
-// CRUD for Management Staff
 app.post("/managementStaff", (req, res) => {
   const { name, department, image } = req.body;
   const query = "INSERT INTO ManagementStaff (name, department, image) VALUES (?, ?, ?)";
@@ -214,7 +210,6 @@ app.delete("/managementStaff/:id", (req, res) => {
   });
 });
 
-// CRUD for Office Staff
 app.post("/officeStaff", (req, res) => {
   const { name, department, image } = req.body;
   const query = "INSERT INTO OfficeStaff (name, department, image) VALUES (?, ?, ?)";
@@ -243,7 +238,6 @@ app.delete("/officeStaff/:id", (req, res) => {
   });
 });
 
-// CRUD for Regular Staff
 app.post("/regularStaff", (req, res) => {
   const { name, department, image } = req.body;
   const query = "INSERT INTO regularStaff (name, department, image) VALUES (?, ?, ?)";
