@@ -266,10 +266,20 @@ app.delete("/regularStaff/:id", (req, res) => {
   });
 });
 
-// CRUD for Sub Event
+// CRUD operations for subEvent
+app.get("/subEvent", (req, res) => {
+  db.query("SELECT * FROM subEvent", (err, results) => {
+    if (err) {
+      return res.status(500).json({ error: err.message });
+    }
+    res.json(results);
+  });
+});
+
 app.post("/subEvent", (req, res) => {
   const { event_name, category, year, month, description, img1, img2, img3, img4, img5, img6, img7, img8, img9, img10 } = req.body;
-  const query = "INSERT INTO subEvent (event_name, category, year, month, description, img1, img2, img3, img4, img5, img6, img7, img8, img9, img10) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+  const query = "INSERT INTO subEvent (event_name, category, year, month, description, img1, img2, img3, img4, img5, img6, img7, img8, img9, img10) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+  
   db.query(query, [event_name, category, year, month, description, img1, img2, img3, img4, img5, img6, img7, img8, img9, img10], (err, result) => {
     if (err) return res.status(500).json({ error: err.message });
     res.status(201).json({ id: result.insertId });
@@ -280,6 +290,7 @@ app.put("/subEvent/:id", (req, res) => {
   const { id } = req.params;
   const { event_name, category, year, month, description, img1, img2, img3, img4, img5, img6, img7, img8, img9, img10 } = req.body;
   const query = "UPDATE subEvent SET event_name = ?, category = ?, year = ?, month = ?, description = ?, img1 = ?, img2 = ?, img3 = ?, img4 = ?, img5 = ?, img6 = ?, img7 = ?, img8 = ?, img9 = ?, img10 = ? WHERE id = ?";
+  
   db.query(query, [event_name, category, year, month, description, img1, img2, img3, img4, img5, img6, img7, img8, img9, img10, id], (err) => {
     if (err) return res.status(500).json({ error: err.message });
     res.sendStatus(204);
@@ -289,6 +300,7 @@ app.put("/subEvent/:id", (req, res) => {
 app.delete("/subEvent/:id", (req, res) => {
   const { id } = req.params;
   const query = "DELETE FROM subEvent WHERE id = ?";
+  
   db.query(query, [id], (err) => {
     if (err) return res.status(500).json({ error: err.message });
     res.sendStatus(204);
