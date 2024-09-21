@@ -358,58 +358,40 @@ const handleQuery = (query, params, res) => {
   });
 };
 
-// CRUD operations for subEvent
-app
-  .route("/subEvent")
-  .get((req, res) => {
-    handleQuery("SELECT * FROM subEvent", [], res);
-  })
-  .post((req, res) => {
-    const {
-      event_name,
-      category,
-      year,
-      month,
-      description,
-      img1,
-      img2,
-      img3,
-      img4,
-      img5,
-      img6,
-      img7,
-      img8,
-      img9,
-      img10,
-    } = req.body;
-    const query =
-      "INSERT INTO subEvent (event_name, category, year, month, description, img1, img2, img3, img4, img5, img6, img7, img8, img9, img10) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+app.post("/subEvent", (req, res) => {
+  const {
+    event_name,
+    category,
+    year,
+    month,
+    description,
+    img1,
+    img2,
+    img3,
+    img4,
+    img5,
+    img6,
+    img7,
+    img8,
+    img9,
+    img10,
+  } = req.body;
 
-    db.query(
-      query,
-      [
-        event_name,
-        category,
-        year,
-        month,
-        description,
-        img1,
-        img2,
-        img3,
-        img4,
-        img5,
-        img6,
-        img7,
-        img8,
-        img9,
-        img10,
-      ],
-      (err, result) => {
-        if (err) return res.status(500).json({ error: err.message });
-        res.status(201).json({ id: result.insertId });
-      }
-    );
+  const images = [img1, img2, img3, img4, img5, img6, img7, img8, img9, img10].filter(Boolean);
+  
+  const query =
+    "INSERT INTO subEvent (event_name, category, year, month, description" +
+    (images.length ? ", " + images.map((_, i) => `img${i + 1}`).join(", ") : "") +
+    ") VALUES (?, ?, ?, ?, ?" +
+    (images.length ? ", " + images.map(() => "?").join(", ") : "") + ")";
+
+  const params = [event_name, category, year, month, description, ...images];
+
+  db.query(query, params, (err, result) => {
+    if (err) return res.status(500).json({ error: err.message });
+    res.status(201).json({ id: result.insertId });
   });
+});
 
 app
   .route("/subEvent/:id")
