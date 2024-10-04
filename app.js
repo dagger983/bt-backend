@@ -217,11 +217,10 @@ app.put("/mainEvent/:id", (req, res) => {
     img6,
     img7,
     img8,
-    img9,
-    img10,
+    img9
   } = req.body;
   const query =
-    "UPDATE mainEvent SET event_name = ?, category = ?, year = ?, description = ?, img1 = ?, img2 = ?, img3 = ?, img4 = ?, img5 = ?, img6 = ?, img7 = ?, img8 = ?, img9 = ?, img10 = ? WHERE id = ?";
+    "UPDATE mainEvent SET event_name = ?, category = ?, year = ?, description = ?, img1 = ?, img2 = ?, img3 = ?, img4 = ?, img5 = ?, img6 = ?, img7 = ?, img8 = ?, img9 = ? WHERE id = ?";
   db.query(
     query,
     [
@@ -238,7 +237,6 @@ app.put("/mainEvent/:id", (req, res) => {
       img7,
       img8,
       img9,
-      img10,
       id,
     ],
     (err) => {
@@ -374,10 +372,10 @@ app.post("/subEvent", (req, res) => {
     img7,
     img8,
     img9,
-    img10,
+   
   } = req.body;
 
-  const images = [img1, img2, img3, img4, img5, img6, img7, img8, img9, img10].filter(Boolean);
+  const images = [img1, img2, img3, img4, img5, img6, img7, img8, img9].filter(Boolean);
   
   const query =
     "INSERT INTO subEvent (event_name, category, year, month, description" +
@@ -412,10 +410,10 @@ app
       img7,
       img8,
       img9,
-      img10,
+      
     } = req.body;
     const query =
-      "UPDATE subEvent SET event_name = ?, category = ?, year = ?, month = ?, description = ?, img1 = ?, img2 = ?, img3 = ?, img4 = ?, img5 = ?, img6 = ?, img7 = ?, img8 = ?, img9 = ?, img10 = ? WHERE id = ?";
+      "UPDATE subEvent SET event_name = ?, category = ?, year = ?, month = ?, description = ?, img1 = ?, img2 = ?, img3 = ?, img4 = ?, img5 = ?, img6 = ?, img7 = ?, img8 = ?, img9 = ?, WHERE id = ?";
 
     db.query(
       query,
@@ -434,7 +432,6 @@ app
         img7,
         img8,
         img9,
-        img10,
         id,
       ],
       (err) => {
