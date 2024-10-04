@@ -172,11 +172,12 @@ app.post("/mainEvent", (req, res) => {
     img6,
     img7,
     img8,
-    img9,
-
+    img9
   } = req.body;
+  
   const query =
-    "INSERT INTO mainEvent (event_name, category, year, description, img1, img2, img3, img4, img5, img6, img7, img8, img9) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    "INSERT INTO mainEvent (event_name, category, year, description, img1, img2, img3, img4, img5, img6, img7, img8, img9) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    
   db.query(
     query,
     [
@@ -192,7 +193,7 @@ app.post("/mainEvent", (req, res) => {
       img6,
       img7,
       img8,
-      img9,
+      img9
     ],
     (err, result) => {
       if (err) return res.status(500).json({ error: err.message });
@@ -200,6 +201,8 @@ app.post("/mainEvent", (req, res) => {
     }
   );
 });
+
+
 
 
 app.delete("/mainEvent/:id", (req, res) => {
