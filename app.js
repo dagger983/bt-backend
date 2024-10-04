@@ -201,49 +201,6 @@ app.post("/mainEvent", (req, res) => {
   );
 });
 
-app.put("/mainEvent/:id", (req, res) => {
-  const { id } = req.params;
-  const {
-    event_name,
-    category,
-    year,
-    description,
-    img1,
-    img2,
-    img3,
-    img4,
-    img5,
-    img6,
-    img7,
-    img8,
-    img9
-  } = req.body;
-  const query =
-    "UPDATE mainEvent SET event_name = ?, category = ?, year = ?, description = ?, img1 = ?, img2 = ?, img3 = ?, img4 = ?, img5 = ?, img6 = ?, img7 = ?, img8 = ?, img9 = ? WHERE id = ?";
-  db.query(
-    query,
-    [
-      event_name,
-      category,
-      year,
-      description,
-      img1,
-      img2,
-      img3,
-      img4,
-      img5,
-      img6,
-      img7,
-      img8,
-      img9,
-      id,
-    ],
-    (err) => {
-      if (err) return res.status(500).json({ error: err.message });
-      res.sendStatus(204);
-    }
-  );
-});
 
 app.delete("/mainEvent/:id", (req, res) => {
   const { id } = req.params;
@@ -392,53 +349,6 @@ app.post("/subEvent", (req, res) => {
 
 app
   .route("/subEvent/:id")
-  .put((req, res) => {
-    const { id } = req.params;
-    const {
-      event_name,
-      category,
-      year,
-      month,
-      description,
-      img1,
-      img2,
-      img3,
-      img4,
-      img5,
-      img6,
-      img7,
-      img8,
-      img9,
-      
-    } = req.body;
-    const query =
-      "UPDATE subEvent SET event_name = ?, category = ?, year = ?, month = ?, description = ?, img1 = ?, img2 = ?, img3 = ?, img4 = ?, img5 = ?, img6 = ?, img7 = ?, img8 = ?, img9 = ?, WHERE id = ?";
-
-    db.query(
-      query,
-      [
-        event_name,
-        category,
-        year,
-        month,
-        description,
-        img1,
-        img2,
-        img3,
-        img4,
-        img5,
-        img6,
-        img7,
-        img8,
-        img9,
-        id,
-      ],
-      (err) => {
-        if (err) return res.status(500).json({ error: err.message });
-        res.sendStatus(204);
-      }
-    );
-  })
   .delete((req, res) => {
     const { id } = req.params;
     const query = "DELETE FROM subEvent WHERE id = ?";
