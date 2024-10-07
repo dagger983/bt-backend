@@ -172,11 +172,14 @@ app.post("/mainEvent", (req, res) => {
     img6,
     img7,
     img8,
-    img9
+    img9,
+    img10,
+    img11,
+    img12
   } = req.body;
 
   // Filter out undefined, null, or empty image values
-  const images = [img1, img2, img3, img4, img5, img6, img7, img8, img9].filter(Boolean);
+  const images = [img1, img2, img3, img4, img5, img6, img7, img8, img9, img10, img11, img12].filter(Boolean);
   
   // Construct the base query
   const query =
@@ -185,10 +188,8 @@ app.post("/mainEvent", (req, res) => {
     ") VALUES (?, ?, ?, ?" +
     (images.length ? ", " + images.map(() => "?").join(", ") : "") + ")";
 
-  // Construct the parameter array for the query
   const params = [event_name, category, year, description, ...images];
 
-  // Execute the query with parameters
   db.query(query, params, (err, result) => {
     if (err) {
       console.error(err);
@@ -329,10 +330,13 @@ app.post("/subEvent", (req, res) => {
     img7,
     img8,
     img9,
+    img10,
+    img11,
+    img12
   } = req.body;
 
   // Filter out undefined or empty images
-  const images = [img1, img2, img3, img4, img5, img6, img7, img8, img9].filter(Boolean);
+  const images = [img1, img2, img3, img4, img5, img6, img7, img8, img9, img10, img11, img12].filter(Boolean);
   
   // Construct the base query
   const query =
@@ -353,6 +357,7 @@ app.post("/subEvent", (req, res) => {
     res.status(201).json({ id: result.insertId });
   });
 });
+
 
 app
   .route("/subEvent/:id")
