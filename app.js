@@ -174,33 +174,31 @@ app.post("/mainEvent", (req, res) => {
     img8,
     img9
   } = req.body;
+
+  // Filter out undefined, null, or empty image values
+  const images = [img1, img2, img3, img4, img5, img6, img7, img8, img9].filter(Boolean);
   
+  // Construct the base query
   const query =
-    "INSERT INTO mainEvent (event_name, category, year, description, img1, img2, img3, img4, img5, img6, img7, img8, img9) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-    
-  db.query(
-    query,
-    [
-      event_name,
-      category,
-      year,
-      description,
-      img1,
-      img2,
-      img3,
-      img4,
-      img5,
-      img6,
-      img7,
-      img8,
-      img9
-    ],
-    (err, result) => {
-      if (err) return res.status(500).json({ error: err.message });
-      res.status(201).json({ id: result.insertId });
+    "INSERT INTO mainEvent (event_name, category, year, description" +
+    (images.length ? ", " + images.map((_, i) => `img${i + 1}`).join(", ") : "") +
+    ") VALUES (?, ?, ?, ?" +
+    (images.length ? ", " + images.map(() => "?").join(", ") : "") + ")";
+
+  // Construct the parameter array for the query
+  const params = [event_name, category, year, description, ...images];
+
+  // Execute the query with parameters
+  db.query(query, params, (err, result) => {
+    if (err) {
+      console.error(err);
+      return res.status(500).json({ error: err.message });
     }
-  );
+    res.status(201).json({ id: result.insertId });
+  });
 });
+
+
 
 
 
@@ -331,21 +329,27 @@ app.post("/subEvent", (req, res) => {
     img7,
     img8,
     img9,
-   
   } = req.body;
 
+  // Filter out undefined or empty images
   const images = [img1, img2, img3, img4, img5, img6, img7, img8, img9].filter(Boolean);
   
+  // Construct the base query
   const query =
     "INSERT INTO subEvent (event_name, category, year, month, description" +
     (images.length ? ", " + images.map((_, i) => `img${i + 1}`).join(", ") : "") +
     ") VALUES (?, ?, ?, ?, ?" +
     (images.length ? ", " + images.map(() => "?").join(", ") : "") + ")";
 
+  // Construct the parameter array for the query
   const params = [event_name, category, year, month, description, ...images];
 
+  // Execute the query with parameters
   db.query(query, params, (err, result) => {
-    if (err) return res.status(500).json({ error: err.message });
+    if (err) {
+      console.error(err);
+      return res.status(500).json({ error: err.message });
+    }
     res.status(201).json({ id: result.insertId });
   });
 });
